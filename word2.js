@@ -21,8 +21,10 @@ function init() {
   const guesses = [[], [], [], [], [], []];
   const alphabets = 'qwertyuiopasdfghjklzxcvbnm'.toUpperCase();
   let currentRow = 0;
+  let guessString = '';
   const wordOfTheDay = 'ANKIT';
   console.log(countLetters(wordOfTheDay));
+
   const letterBox = document.querySelectorAll('.letter-box');
 
 
@@ -44,45 +46,31 @@ function init() {
   const wordValidate = () => {
     const wordOfTheDayArray = Array.from(wordOfTheDay);
     const wordOfTheDayLetterCount = countLetters(wordOfTheDay);
+    guessString = guesses[currentRow].join("");
+    const guessArray = Array.from(guessString);
+    console.log(countLetters(guessString));
     const guessLetterCount = {};
-    for (let i = 0; i < guesses[currentRow].length; i++) {
-      const currentLetter = guesses[currentRow][i];
 
-      // Is this letter in the correct position? - Green
-      // If not, is this letter present in the string?
-      //    If so, has the user entered the same letter in the string again? - Grey
-      //    If not - Yellow
-
-      const guessCurrentLetterCount = guessLetterCount[currentLetter] !== undefined ? guessLetterCount[currentLetter] : 0;
-      const compareCurrentLetterCount = wordOfTheDayLetterCount[currentLetter] !== undefined ? wordOfTheDayLetterCount[currentLetter] : 0;
-
-
-
-      if (currentLetter === wordOfTheDayArray[i]) {
-        letterBox[currentRow * guesses[currentRow].length + i].classList.add("green");
-      }
-
-
-      else if (wordOfTheDay.includes(currentLetter) && guessCurrentLetterCount < compareCurrentLetterCount) {
-
-        letterBox[currentRow * guesses[currentRow].length + i].classList.add("yellow");
-      }
-
-
-
-      else {
-        letterBox[currentRow * guesses[currentRow].length + i].classList.add("grey")
-      }
-
-      if (currentLetter in guessLetterCount) {
-        guessLetterCount[currentLetter] += 1;
-      }
-      else {
-        guessLetterCount[currentLetter] = 1;
-      }
-
-
+    if (guessArray.includes(wordOfTheDayArray)) {
+      letterBox[currentRow * guesses[currentRow].length + i].classList.add("green");
     }
+
+
+    // Is this letter in the correct position? - Green
+    // If not, is this letter present in the string?
+    //    If so, has the user entered the same letter in the string again? - Grey
+    //    If not - Yellow
+
+
+
+
+
+
+
+
+
+
+
 
   }
 

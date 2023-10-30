@@ -12,6 +12,7 @@ body {
 }
 
 
+
 .heading-bar {
   border-bottom: 2px solid #333;
   text-align: center;
@@ -49,4 +50,18 @@ body {
   margin: 8px auto;
   opacity: 0;
 
+}
+
+
+.green {
+  background-color: green;
+  color: white;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.grey {
+  background-color: grey;
 }
