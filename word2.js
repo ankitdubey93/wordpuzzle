@@ -21,9 +21,12 @@ function init() {
   const guesses = [[], [], [], [], [], []];
   const alphabets = 'qwertyuiopasdfghjklzxcvbnm'.toUpperCase();
   let currentRow = 0;
-  let guessString = '';
   const wordOfTheDay = 'ANKIT';
   console.log(countLetters(wordOfTheDay));
+  let guessString = "";
+
+
+
 
   const letterBox = document.querySelectorAll('.letter-box');
 
@@ -46,13 +49,43 @@ function init() {
   const wordValidate = () => {
     const wordOfTheDayArray = Array.from(wordOfTheDay);
     const wordOfTheDayLetterCount = countLetters(wordOfTheDay);
-    guessString = guesses[currentRow].join("");
-    const guessArray = Array.from(guessString);
-    console.log(countLetters(guessString));
     const guessLetterCount = {};
+    guessString = guesses[currentRow].join("");
+    console.log(guessString);
+    guessLetterActualCount = countLetters(guessString);
+    console.log(guessLetterActualCount);
 
-    if (guessArray.includes(wordOfTheDayArray)) {
-      letterBox[currentRow * guesses[currentRow].length + i].classList.add("green");
+
+    for (let i = 0; i < guesses[currentRow].length; i++) {
+      const currentLetter = guesses[currentRow][i];
+
+
+      if (currentLetter === wordOfTheDayArray[i]) {
+        letterBox[currentRow * guesses[currentRow].length + i].classList.add("green");
+        wordOfTheDayLetterCount[currentLetter] -= 1;
+        console.log(wordOfTheDayLetterCount);
+      }
+
+
+      else {
+        if (wordOfTheDay.includes(currentLetter)) {
+          if (guessLetterActualCount[currentLetter] > wordOfTheDayLetterCount[currentLetter]) {
+
+            letterBox[currentRow * guesses[currentRow].length + i].classList.add("grey");
+          }
+
+          else {
+            letterBox[currentRow * guesses[currentRow].length + i].classList.add("yellow");
+
+          }
+        }
+        else {
+          letterBox[currentRow * guesses[currentRow].length + i].classList.add("grey");
+
+        }
+
+      }
+
     }
 
 
@@ -60,18 +93,6 @@ function init() {
     // If not, is this letter present in the string?
     //    If so, has the user entered the same letter in the string again? - Grey
     //    If not - Yellow
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
@@ -102,7 +123,7 @@ function init() {
 
     else {
       if (letter === 'ENTER') {
-        const guess = guesses[currentRow].join("");
+        guess = guesses[currentRow].join("");
         wordValidate();
         if (guess === wordOfTheDay) {
           alert('you won!');
