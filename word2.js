@@ -102,11 +102,12 @@ function init() {
    */
   const keyPressed = (event) => {
     const letter = event.key.toUpperCase();
+    console.log(letter);
     if (!alphabets.includes(letter) && letter != 'ENTER') {
       return;
     }
     if (guesses[currentRow].length < 5) {
-      if (letter != 'ENTER') {
+      if (letter != 'ENTER' && letter != 'BACKSPACE') {
         guesses[currentRow].push(letter);
 
 
@@ -135,6 +136,11 @@ function init() {
         }
         currentRow++;
 
+      }
+      else if (letter === 'BACKSPACE') {
+        if (guesses[currentRow].length >= 0) {
+          guesses[currentRow].pop(letter);
+        }
       }
     }
   }
