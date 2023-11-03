@@ -102,9 +102,21 @@ function init() {
    */
   const keyPressed = (event) => {
     const letter = event.key.toUpperCase();
-    console.log(letter);
-    if (!alphabets.includes(letter) && letter != 'ENTER') {
+    if (!alphabets.includes(letter) && letter != 'ENTER' && letter != 'BACKSPACE') {
       return;
+    }
+    if (letter === 'BACKSPACE') {
+      if (guesses[currentRow].length > 0) {
+        guesses[currentRow].pop();
+
+        for (let i = letterBox.length - 1; i >= 0; i--) {
+          if (letterBox[i].innerHTML.length > 0) {
+            letterBox[i].innerHTML = '';
+            break;
+          }
+        }
+
+      }
     }
     if (guesses[currentRow].length < 5) {
       if (letter != 'ENTER' && letter != 'BACKSPACE') {
@@ -135,14 +147,10 @@ function init() {
           document.removeEventListener('keydown', keyPressed);
         }
         currentRow++;
+      }
 
-      }
-      else if (letter === 'BACKSPACE') {
-        if (guesses[currentRow].length >= 0) {
-          guesses[currentRow].pop(letter);
-        }
-      }
     }
+
   }
   document.addEventListener('keydown', keyPressed);
 
