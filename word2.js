@@ -161,6 +161,7 @@ async function init() {
         if (guess === wordOfTheDay) {
           alert('you won!');
           document.removeEventListener('keydown', keyPressed);
+          document.querySelector(".game-logo").classList.add("winner");
         }
         if (guess !== wordOfTheDay && currentRow === 5) {
           alert('you lost');
