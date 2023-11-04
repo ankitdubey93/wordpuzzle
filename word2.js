@@ -1,9 +1,18 @@
 
 
-function init() {
+
+
+async function init() {
 
 
   const container = document.querySelector('.outer-box');
+  const loadingDiv = document.querySelector(".info-bar");
+  let isLoading = true;
+
+
+
+
+
 
 
   for (let i = 0; i < 6; i++) {
@@ -18,10 +27,18 @@ function init() {
     }
   }
 
+
+  const word = await fetch("https://words.dev-apis.com/word-of-the-day");
+  const { word: wordRes } = await word.json();
+  const wordOfTheDay = wordRes.toUpperCase();
+  isLoading = false;
+  setLoading(isLoading);
+
+
+
   const guesses = [[], [], [], [], [], []];
   const alphabets = 'qwertyuiopasdfghjklzxcvbnm'.toUpperCase();
   let currentRow = 0;
-  const wordOfTheDay = 'ANKIT';
   console.log(countLetters(wordOfTheDay));
   let guessString = "";
 
@@ -44,6 +61,9 @@ function init() {
     }
     return letterCount;
   }
+
+
+
 
 
   const wordValidate = () => {
@@ -153,6 +173,10 @@ function init() {
 
   }
   document.addEventListener('keydown', keyPressed);
+
+  function setLoading(isLoading) {
+    loadingDiv.classList.toggle("hidden", !isLoading);
+  }
 
 }
 
